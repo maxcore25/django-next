@@ -119,3 +119,53 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ProductSpecificationValue(models.Model):
+    """
+    The Product Specification Value table holds each of the
+    products individual specification or bespoke features.
+    """
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    specification = models.ForeignKey(ProductSpecification, on_delete=models.RESTRICT)
+    value = models.CharField(
+        verbose_name=_("value"),
+        help_text=_("Product specification value (maximum of 255 words"),
+        max_length=255,
+    )
+
+    class Meta:
+        verbose_name = _("Product Specification Value")
+        verbose_name_plural = _("Product Specification Values")
+
+    def __str__(self):
+        return self.value
+
+
+class ProductImage(models.Model):
+    """
+    The Product Image table.
+    """
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_image")
+    image = models.ImageField(
+        verbose_name=_("image"),
+        help_text=_("Upload a product image"),
+        upload_to="images/",
+        default="images/default.png",
+    )
+    alt_text = models.CharField(
+        verbose_name=_("Alturnative text"),
+        help_text=_("Please add alturnative text"),
+        max_length=255,
+        null=True,
+        blank=True,
+    )
+    is_feature = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _("Product Image")
+        verbose_name_plural = _("Product Images")
