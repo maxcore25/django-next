@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics
 
 from store.models import Product, Category
+from store.serializers import ProductSerializer
 
 
 class ProductListView(generics.ListAPIView):
