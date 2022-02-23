@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Home() {
+function Home({ posts }) {
   const classes = useStyles();
   return (
     <>
@@ -28,3 +28,16 @@ export default function Home() {
     </>
   );
 }
+
+export async function getStaticProps() {
+  const res = await fetch('http://127.0.0.1:8000/api/');
+  const posts = await res.json();
+
+  return {
+    props: {
+      posts,
+    },
+  };
+}
+
+export default Home;
