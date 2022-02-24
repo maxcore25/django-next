@@ -34,32 +34,36 @@ function Home({ posts }) {
   return (
     <>
       <Header />
-      <div>
-        <h2>My Store Items:</h2>
-        <main>
-          <Container className={classes.cardGrid} maxWidth='lg'>
-            <Grid container spacing={2}>
-              {posts.map(post => (
-                <Link key={post.id}>
-                  <Grid item xs={6} sm={4} md={3}>
-                    <Card>
-                      <CardMedia></CardMedia>
-                      <CardContent>
-                        <Typography gutterBottom component='p'>
-                          {post.title}
-                        </Typography>
-                        <Box component='p' fontSize={16} fontWeight={900}>
-                          £{post.regular_price}
-                        </Box>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                </Link>
-              ))}
-            </Grid>
-          </Container>
-        </main>
-      </div>
+      <main>
+        <Container className={classes.cardGrid} maxWidth='lg'>
+          <Grid container spacing={2}>
+            {posts.map(post => (
+              <Link
+                key={post.id}
+                href={`product/${encodeURIComponent(post.slug)}`}>
+                <Grid item xs={6} sm={12} md={12}>
+                  <Card className={classes.card} elevation={0}>
+                    {/* <CardMedia
+                      className={classes.cardMedia}
+                      image={post.product_image[0].image}
+                      title='Image title'
+                      alt={post.product_image[0].alt_text}
+                    /> */}
+                    <CardContent>
+                      <Typography gutterBottom component='p'>
+                        {post.title}
+                      </Typography>
+                      <Box component='p' fontSize={16} fontWeight={900}>
+                        £{post.regular_price}
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Link>
+            ))}
+          </Grid>
+        </Container>
+      </main>
     </>
   );
 }
