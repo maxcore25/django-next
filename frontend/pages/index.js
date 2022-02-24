@@ -49,6 +49,10 @@ function Home({ posts }) {
                       title='Image title'
                       alt={post.product_image[0].alt_text}
                     />
+                    <img
+                      src={post.product_image[0].image}
+                      alt='this is test img'
+                    />
                     <CardContent>
                       <Typography gutterBottom component='p'>
                         {post.title}
