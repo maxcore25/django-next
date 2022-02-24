@@ -10,6 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 const useStyles = makeStyles(theme => ({
   appbarMain: {
     backgroundColor: '#2d2d2d',
+    color: '#fff',
   },
 }));
 

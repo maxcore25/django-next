@@ -38,7 +38,7 @@ function Home({ posts }) {
         {posts.map(post => (
           // <p key={post.id}>{post.title}</p>
           <Link key={post.id}>
-            <Grid>
+            <Grid item xs={6} sm={4} md={3}>
               <Card>
                 <CardMedia></CardMedia>
                 <CardContent>
