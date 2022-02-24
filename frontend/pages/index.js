@@ -1,15 +1,13 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Container,
-  Grid,
-  Link,
-  Typography,
-} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Header from '../components/Header';
+import Header from '../components/header';
+import Box from '@material-ui/core/Box';
+import CardMedia from '@material-ui/core/CardMedia';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Link from 'next/link';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles(theme => ({
   example: {
@@ -29,29 +27,26 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Home({ posts }) {
+function Home({ posts, categories }) {
   const classes = useStyles();
+
   return (
     <>
-      <Header />
+      <Header data={categories} />
       <main>
         <Container className={classes.cardGrid} maxWidth='lg'>
           <Grid container spacing={2}>
             {posts.map(post => (
               <Link
                 key={post.id}
-                href={`product/${encodeURIComponent(post.slug)}`}>
-                <Grid item xs={6} sm={12} md={12}>
+                to={`product/${encodeURIComponent(post.slug)}`}>
+                <Grid item xs={6} sm={4} md={3}>
                   <Card className={classes.card} elevation={0}>
                     <CardMedia
                       className={classes.cardMedia}
                       image={post.product_image[0].image}
                       title='Image title'
                       alt={post.product_image[0].alt_text}
-                    />
-                    <img
-                      src={post.product_image[0].image}
-                      alt='this is test img'
                     />
                     <CardContent>
                       <Typography gutterBottom component='p'>
@@ -76,9 +71,13 @@ export async function getStaticProps() {
   const res = await fetch('http://127.0.0.1:8000/api/');
   const posts = await res.json();
 
+  const ress = await fetch('http://127.0.0.1:8000/api/category/');
+  const categories = await ress.json();
+
   return {
     props: {
       posts,
+      // categories,
     },
   };
 }
