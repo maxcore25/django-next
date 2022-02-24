@@ -43,12 +43,12 @@ function Home({ posts }) {
                 href={`product/${encodeURIComponent(post.slug)}`}>
                 <Grid item xs={6} sm={12} md={12}>
                   <Card className={classes.card} elevation={0}>
-                    {/* <CardMedia
+                    <CardMedia
                       className={classes.cardMedia}
                       image={post.product_image[0].image}
                       title='Image title'
                       alt={post.product_image[0].alt_text}
-                    /> */}
+                    />
                     <CardContent>
                       <Typography gutterBottom component='p'>
                         {post.title}
