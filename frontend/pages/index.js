@@ -1,4 +1,12 @@
-import { Grid, Link } from '@material-ui/core';
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  Link,
+  Typography,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../components/Header';
 
@@ -30,7 +38,19 @@ function Home({ posts }) {
         {posts.map(post => (
           // <p key={post.id}>{post.title}</p>
           <Link key={post.id}>
-            <Grid></Grid>
+            <Grid>
+              <Card>
+                <CardMedia></CardMedia>
+                <CardContent>
+                  <Typography gutterBottom component='p'>
+                    {post.title}
+                  </Typography>
+                  <Box component='p' fontSize={16} fontWeight={900}>
+                    £{post.regular_price}
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid>
           </Link>
         ))}
       </div>
