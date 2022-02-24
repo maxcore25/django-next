@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import Header from '../components/header';
+import Header from '../../components/header';
 import Box from '@material-ui/core/Box';
 import CardMedia from '@material-ui/core/CardMedia';
 import Card from '@material-ui/core/Card';
@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles(theme => ({
   example: {
@@ -29,6 +30,11 @@ const useStyles = makeStyles(theme => ({
 
 function Home({ posts, categories }) {
   const classes = useStyles();
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -36,10 +42,11 @@ function Home({ posts, categories }) {
       <main>
         <Container className={classes.cardGrid} maxWidth='lg'>
           <Grid container spacing={2}>
+            {console.log(posts)}
             {posts.map(post => (
               <Link
                 key={post.id}
-                href={`product/${encodeURIComponent(post.slug)}`}>
+                href={`/product/${encodeURIComponent(post.slug)}`}>
                 <Grid item xs={6} sm={4} md={3}>
                   <Card className={classes.card} elevation={0}>
                     <CardMedia
@@ -67,8 +74,15 @@ function Home({ posts, categories }) {
   );
 }
 
-export async function getStaticProps() {
-  const res = await fetch('http://127.0.0.1:8000/api/');
+export async function getStaticPaths() {
+  return {
+    paths: [{ params: { slug: 'shoes' } }],
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const res = await fetch(`http://127.0.0.1:8000/api/category/${params.slug}`);
   const posts = await res.json();
 
   const ress = await fetch('http://127.0.0.1:8000/api/category/');
