@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Container,
   Grid,
   Link,
   Typography,
@@ -35,24 +36,29 @@ function Home({ posts }) {
       <Header />
       <div>
         <h2>My Store Items:</h2>
-        {posts.map(post => (
-          // <p key={post.id}>{post.title}</p>
-          <Link key={post.id}>
-            <Grid item xs={6} sm={4} md={3}>
-              <Card>
-                <CardMedia></CardMedia>
-                <CardContent>
-                  <Typography gutterBottom component='p'>
-                    {post.title}
-                  </Typography>
-                  <Box component='p' fontSize={16} fontWeight={900}>
-                    £{post.regular_price}
-                  </Box>
-                </CardContent>
-              </Card>
+        <main>
+          <Container className={classes.cardGrid} maxWidth='lg'>
+            <Grid container spacing={2}>
+              {posts.map(post => (
+                <Link key={post.id}>
+                  <Grid item xs={6} sm={4} md={3}>
+                    <Card>
+                      <CardMedia></CardMedia>
+                      <CardContent>
+                        <Typography gutterBottom component='p'>
+                          {post.title}
+                        </Typography>
+                        <Box component='p' fontSize={16} fontWeight={900}>
+                          £{post.regular_price}
+                        </Box>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Link>
+              ))}
             </Grid>
-          </Link>
-        ))}
+          </Container>
+        </main>
       </div>
     </>
   );
